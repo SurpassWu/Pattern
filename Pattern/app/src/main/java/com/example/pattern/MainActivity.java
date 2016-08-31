@@ -13,6 +13,9 @@ import com.example.pattern.builderpattern.model.ExportFooterModel;
 import com.example.pattern.builderpattern.model.ExportHeaderModel;
 import com.example.pattern.factorypattern.ExportDBOperation;
 import com.example.pattern.factorypattern.ExportOperate;
+import com.example.pattern.memento.FlowAMementoCareTaker;
+import com.example.pattern.memento.FlowAMock;
+import com.example.pattern.memento.FlowAMockMemento;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,5 +58,18 @@ public class MainActivity extends AppCompatActivity {
         Director director = new Director(txtBuilder);
         director.construct(ehm,mapData,efm);
         System.out.println("输出文本内容: \n"+txtBuilder.getResult());
+
+        /**
+         * 备忘录
+         */
+
+        FlowAMock mock = new FlowAMock("TestFlow");
+        mock.runPaseOne();
+        FlowAMementoCareTaker careTaker = new FlowAMementoCareTaker();
+        FlowAMockMemento memento = mock.createMemento();
+        careTaker.saveMemento(memento);
+        mock.schema1();
+        mock.setMemento(careTaker.retriveMemento());
+        mock.schema2();
     }
 }
